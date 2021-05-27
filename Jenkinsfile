@@ -9,9 +9,7 @@ pipeline {
     stages{
         stage('Build Docker Image'){
             steps{
-                sh "docker_url=https://download.docker.com/linux/static/stable/x86_64"
-                sh "docker_version=18.03.1-ce"
-                sh "curl -fsSL $docker_url/docker-$docker_version.tgz | \
+                sh "curl -fsSL https://download.docker.com/linux/static/stable/x86_64/docker-18.03.1-ce.tgz | \
                 tar zxvf - --strip 1 -C /usr/bin docker/docker"
                 sh "docker build . -t ${IMAGE_URL_WITH_TAG}"
             }
