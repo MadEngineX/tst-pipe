@@ -37,7 +37,7 @@ spec:
       steps {
         container('docker') {
           sh """
-             docker build -t https://harbor.smpbank/pipe-tst:latest .
+             docker build -t harbor.smpbank/pipe-tst .
           """
         }
       }
