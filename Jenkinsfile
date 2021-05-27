@@ -45,6 +45,7 @@ spec:
 """
 }
 }
+}
     stages{
         stage('Build Docker Image'){
             steps{
