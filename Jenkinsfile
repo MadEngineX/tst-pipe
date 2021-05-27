@@ -1,14 +1,15 @@
 pipeline {
-    kubernetes {
-    environment{
-        DOCKER_TAG = getDockerTag()
-        REGISTRY_URL  = "https://harbor.smpbank/"
-        PROJECT =  "pipe-tst"
-        IMAGE_URL_WITH_TAG = "${REGISTRY_URL}/${PROJECT}:${DOCKER_TAG}"
-    }
-    label 'spring-petclinic-demo'
-    defaultContainer 'jnlp'
-    yaml """
+    agent {
+        environment{
+            DOCKER_TAG = getDockerTag()
+            REGISTRY_URL  = "https://harbor.smpbank/"
+            PROJECT =  "pipe-tst"
+            IMAGE_URL_WITH_TAG = "${REGISTRY_URL}/${PROJECT}:${DOCKER_TAG}"
+        }        
+        kubernetes {
+            label 'spring-petclinic-demo'
+            defaultContainer 'jnlp'
+            yaml """
 apiVersion: v1
 kind: Pod
 metadata:
