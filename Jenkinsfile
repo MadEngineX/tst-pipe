@@ -2,10 +2,46 @@ pipeline {
     agent any
     environment{
         DOCKER_TAG = getDockerTag()
-        REGISTRY_URL  = "172.31.34.232:8080"
+        REGISTRY_URL  = "https://harbor.smpbank/"
         PROJECT =  "pipe-tst"
         IMAGE_URL_WITH_TAG = "${REGISTRY_URL}/${PROJECT}:${DOCKER_TAG}"
     }
+    label 'spring-petclinic-demo'
+    defaultContainer 'jnlp'
+    yaml """
+apiVersion: v1
+kind: Pod
+metadata:
+labels:
+  component: ci
+spec:
+  # Use service account that can deploy to all namespaces
+  serviceAccountName: cd-jenkins
+  containers:
+  - name: maven
+    image: maven:latest
+    command:
+    - cat
+    tty: true
+    volumeMounts:
+      - mountPath: "/root/.m2"
+        name: m2
+  - name: docker
+    image: docker:latest
+    command:
+    - cat
+    tty: true
+    volumeMounts:
+    - mountPath: /var/run/docker.sock
+      name: docker-sock
+  volumes:
+    - name: docker-sock
+      hostPath:
+        path: /var/run/docker.sock
+    - name: m2
+      persistentVolumeClaim:
+        claimName: m2
+"""
     stages{
         stage('Build Docker Image'){
             steps{
@@ -14,7 +50,11 @@ pipeline {
                 tar zxvf - --strip 1 -C /usr/bin docker/docker"
                 sh "sudo dockerd"
                 */
-                sh "docker build . -t ${IMAGE_URL_WITH_TAG}"
+                container('docker') {
+                sh """
+                    docker build -t ${IMAGE_URL_WITH_TAG} .
+                """                
+                //sh "docker build . -t ${IMAGE_URL_WITH_TAG}"
             }
         }
         stage('Push Image'){
