@@ -43,7 +43,7 @@ spec:
         claimName: m2
 """
 }
-}
+
     stages{
         stage('Build Docker Image'){
             steps{
