@@ -42,6 +42,8 @@ spec:
       persistentVolumeClaim:
         claimName: m2
 """
+}
+}
     stages{
         stage('Build Docker Image'){
             steps{
@@ -86,5 +88,4 @@ spec:
 def getDockerTag(){
     def tag  = sh script: 'git rev-parse HEAD', returnStdout: true
     return tag
-}
 }
