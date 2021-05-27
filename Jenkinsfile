@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    kubernetes {
     environment{
         DOCKER_TAG = getDockerTag()
         REGISTRY_URL  = "https://harbor.smpbank/"
@@ -43,7 +43,7 @@ spec:
         claimName: m2
 """
 }
-
+}
     stages{
         stage('Build Docker Image'){
             steps{
