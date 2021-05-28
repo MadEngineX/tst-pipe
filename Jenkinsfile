@@ -4,7 +4,7 @@ pipeline {
         REGISTRY_URL  = "https://harbor.smpbank/"
         PROJECT =  "pipe-tst"
         IMAGE_URL_WITH_TAG = "${REGISTRY_URL}/${PROJECT}:${DOCKER_TAG}"
-    }       
+        }       
   agent {
     kubernetes {
       /*
