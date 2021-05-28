@@ -47,7 +47,7 @@ spec:
           """
         }        
       }
-    
+    }
     stage('Push Image'){
         steps{
             withCredentials([string(credentialsId: 'reg-pwd', variable: 'regPwd')]) {
