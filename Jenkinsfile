@@ -43,7 +43,7 @@ spec:
       steps {
         container('docker') {
           sh """
-             docker build -t hub.docker.com/ksxack/tst-py .
+             docker build -t ksxack/tst-py .
           """
         }        
       }
@@ -53,7 +53,7 @@ spec:
             container('docker') {
                 withCredentials([string(credentialsId: 'reg-passwd', variable: 'regPwd')]) {
                     sh "docker login -u ksxack -p 9ASxpNA1" // ${REGISTRY_URL}"
-                    sh "docker push hub.docker.com/ksxack/tst-py"
+                    sh "docker push ksxack/tst-py"
                 }
             }    
         }   
