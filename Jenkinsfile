@@ -53,7 +53,7 @@ spec:
             container('docker') {
                 withCredentials([string(credentialsId: 'reg-passwd', variable: 'regPwd')]) {
                     sh "docker login -u diasdeployer -p ${regPwd} ${REGISTRY_URL}"
-                    sh "docker push ${IMAGE_URL_WITH_TAG}"
+                    sh "docker push harbor.smpbank/pipe-tst"
                 }
             }    
         }   
