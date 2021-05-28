@@ -52,7 +52,7 @@ spec:
         steps{
             container('docker') {
                 withCredentials([string(credentialsId: 'reg-passwd', variable: 'regPwd')]) {
-                    sh "docker login -u 'Kubernetes ESB Develop' -p ${regPwd} ${REGISTRY_URL}"
+                    sh "docker login -u "Kubernetes ESB Develop" -p ${regPwd} ${REGISTRY_URL}"
                     sh "docker push ${IMAGE_URL_WITH_TAG}"
                 }
             }    
