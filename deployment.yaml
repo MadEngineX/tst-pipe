@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tst-py
+  labels:
+    app: tst-py
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tst-py
+  template:
+    metadata:
+      labels:
+        app: tst-py
+    spec:
+      containers:
+      - name: tst-py
+        image: ksxack/tst-py
+        resources:
+          requests:
+            memory: "15Mi"
+            cpu: "15m"
+          limits:
+            memory: "15Mi"
+            cpu: "15m"          
+        imagePullPolicy: IfNotPresent

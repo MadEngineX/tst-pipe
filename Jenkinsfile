@@ -58,5 +58,10 @@ spec:
             }    
         }   
     }     
+    stage('Deploy test'){
+        steps{
+            sh "kubectl apply -f .\deployment.yaml --namespace=test"
+        }   
+    }         
   }
 }
