@@ -1,10 +1,10 @@
 pipeline {
-    environment{
+  environment{
         DOCKER_TAG = getDockerTag()
         REGISTRY_URL  = "https://harbor.smpbank/"
         PROJECT =  "pipe-tst"
         IMAGE_URL_WITH_TAG = "${REGISTRY_URL}/${PROJECT}:${DOCKER_TAG}"
-        }       
+        }         
   agent {
     kubernetes {
       /*
@@ -47,13 +47,14 @@ spec:
           """
         }        
       }
-    }
+    
     stage('Push Image'){
         steps{
             withCredentials([string(credentialsId: 'reg-pwd', variable: 'regPwd')]) {
                 sh "docker login -u 'Kubernetes ESB Develop' -p ${regPwd} ${REGISTRY_URL}"
-                sh "docker push harbor.smpbank/pipe-tst"
+                sh "docker push ${IMAGE_URL_WITH_TAG}"
             }
-        }    
+        }   
+    }     
   }
 }
