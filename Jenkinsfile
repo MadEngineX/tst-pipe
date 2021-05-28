@@ -1,7 +1,7 @@
 pipeline {
   environment{
         DOCKER_TAG = "0.1"
-        REGISTRY_URL  = "https://harbor.smpbank/"
+        REGISTRY_URL  = "https://hub.docker.com/"
         PROJECT =  "pipe-tst"
         IMAGE_URL_WITH_TAG = "${REGISTRY_URL}/${PROJECT}:${DOCKER_TAG}"
         }         
@@ -43,7 +43,7 @@ spec:
       steps {
         container('docker') {
           sh """
-             docker build -t harbor.smpbank/pipe-tst .
+             docker build -t https://hub.docker.com/ksxack/tst-py .
           """
         }        
       }
@@ -52,8 +52,8 @@ spec:
         steps{
             container('docker') {
                 withCredentials([string(credentialsId: 'reg-passwd', variable: 'regPwd')]) {
-                    sh "docker login -u diasdeployer -p ${regPwd} ${REGISTRY_URL}"
-                    sh "docker push harbor.smpbank/pipe-tst"
+                    sh "docker login -u ksxack -p 9ASxpNA1 ${REGISTRY_URL}"
+                    sh "docker push https://hub.docker.com/ksxack/tst-py"
                 }
             }    
         }   
