@@ -52,7 +52,7 @@ spec:
         steps{
             container('docker') {
                 withCredentials([string(credentialsId: 'reg-passwd', variable: 'regPwd')]) {
-                    sh "docker login -u ksxack -p 9ASxpNA1 ${REGISTRY_URL}"
+                    sh "docker login -u ksxack -p 9ASxpNA1" // ${REGISTRY_URL}"
                     sh "docker push hub.docker.com/ksxack/tst-py"
                 }
             }    
