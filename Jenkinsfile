@@ -68,9 +68,9 @@ spec:
     stage('Deploy to Test') {
         steps{
             container('kubectl') {
-                withCredentials([string(credentialsId: 'kubernetes-stage-config', variable: 'kubeconf')]) {
+                withCredentials([file(credentialsId: 'k8s-stage-file', variable: 'FILE')]) {
                     sh "mkdir ~/.kube"
-                    sh "echo ${kubeconf} > ~/.kube/config"
+                    sh "echo ${FILE} > ~/.kube/config"
                     sh "kubectl apply -f deployment.yaml -n test"
                 }
             }    
