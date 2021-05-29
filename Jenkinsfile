@@ -70,7 +70,9 @@ spec:
             container('kubectl') {
                 withCredentials([file(credentialsId: 'k8s-stage-file', variable: 'FILE')]) {
                     sh "mkdir ~/.kube"
-                    sh "echo ${FILE} > ~/.kube/config"
+                    sh "use $FILE"
+                    sh "echo ${FILE}"
+                    sh "cat ${FILE} > ~/.kube/config"
                     sh "kubectl apply -f deployment.yaml -n test"
                 }
             }    
