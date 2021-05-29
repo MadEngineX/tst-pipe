@@ -69,6 +69,7 @@ spec:
         steps{
             container('kubectl') {
                 withCredentials([string(credentialsId: 'kubernetes-stage-config', variable: 'kubeconf')]) {
+                    sh "mkdir ~/.kube"
                     sh "echo ${kubeconf} > ~/.kube/config"
                     sh "kubectl apply -f deployment.yaml -n test"
                 }
